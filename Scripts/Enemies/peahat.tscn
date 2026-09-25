@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/peahat.gd" id="1_peahat"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
+radius = 8.0
+
+[node name="Peahat" type="CharacterBody2D"]
+script = ExtResource("1_peahat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_icon")
+
+[node name="RayCast2D_UP" type="RayCast2D" parent="."]
+target_position = Vector2(0, -11)
+collision_mask = 524289
+collide_with_areas = true
+
+[node name="RayCast2D_DOWN" type="RayCast2D" parent="."]
+target_position = Vector2(0, 9)
+collision_mask = 524289
+collide_with_areas = true
+
+[node name="RayCast2D_LEFT" type="RayCast2D" parent="."]
+target_position = Vector2(-14, 0)
+collision_mask = 524289
+collide_with_areas = true
+
+[node name="RayCast2D_RIGTH" type="RayCast2D" parent="."]
+target_position = Vector2(14, 0)
+collision_mask = 524289
+collide_with_areas = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_hurtbox")
+
+[node name="StateTimer" type="Timer" parent="."]
+one_shot = true
